@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "761046575873",
+    "project_id": "instgramclon",
+    "storage_bucket": "instgramclon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761046575873:android:ca7e315ef8698a06248900",
+        "android_client_info": {
+          "package_name": "com.hohocompany.instagramproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761046575873-bjkh0mda97heqcs31dq6roap2idao5ra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaGxyEa0gDGVwU3VTY0_fXFZUWCp7stZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761046575873-bjkh0mda97heqcs31dq6roap2idao5ra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
