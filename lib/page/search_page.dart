@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:instagramproject/create_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:instagramproject/detail_page.dart';
-
-import 'page_router.dart';
+import 'package:get/get.dart';
+import 'create_page.dart';
 
 class SearchPage extends StatefulWidget {
   var user;
-
   SearchPage(this.user);
 
   @override
@@ -19,15 +16,14 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('searct'),
+        title: Text('search'),
         backgroundColor: Colors.white,
       ),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.create),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CreatePage(widget.user)));
+          Get.toNamed("/create", arguments: widget.user);
         },
       ),
     );
@@ -69,7 +65,7 @@ class _SearchPageState extends State<SearchPage> {
         child: InkWell(
           child: Image.network(document['photoUrl'], fit: BoxFit.cover),
           onTap: () {
-            NavigatorPush(context, DetailPage(document));
+            Get.to("detail", arguments: document);
           },
         ),
       ),

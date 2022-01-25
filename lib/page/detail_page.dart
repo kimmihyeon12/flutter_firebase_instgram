@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 
 class DetailPage extends StatelessWidget {
-  final document;
-  DetailPage(this.document);
-
+  final document = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

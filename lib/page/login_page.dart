@@ -33,9 +33,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<UserCredential> signInWithGoogle() async {
+    print("signinwithgoogle");
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
         await googleUser!.authentication;

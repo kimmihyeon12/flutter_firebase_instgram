@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:instagramproject/login_page.dart';
-import 'package:instagramproject/tap_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:instagramproject/controller/userController.dart';
+import 'package:instagramproject/page/tap_page.dart';
+
+import 'login_page.dart';
 
 class RootPage extends StatelessWidget {
   const RootPage({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class RootPage extends StatelessWidget {
         if (!snapshot.hasData) {
           return LoginPage();
         } else {
-          // print(snapshot);
+          UserController.to.setUser(snapshot.data);
           return TapPage(snapshot.data);
         }
       },

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:instagramproject/account_page.dart';
-import 'package:instagramproject/home_page.dart';
-import 'package:instagramproject/search_page.dart';
+import 'package:instagramproject/page/search_page.dart';
+
+import 'account_page.dart';
+import 'home_page.dart';
 
 class TapPage extends StatefulWidget {
   var user;

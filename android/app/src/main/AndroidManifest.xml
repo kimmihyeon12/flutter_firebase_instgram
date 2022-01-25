@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hohocompany.instagramproject">
+    
    <application
+   android:requestLegacyExternalStorage="true"
         android:label="instagramproject"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
