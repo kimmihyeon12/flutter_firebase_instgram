@@ -5,6 +5,7 @@ import 'package:get/instance_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagramproject/controller/postController.dart';
+import 'package:instagramproject/controller/userController.dart';
 
 class AccountPage extends StatefulWidget {
   var user;
@@ -15,12 +16,10 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final controller = Get.put(PostController());
   @override
   void initState() {
     super.initState();
-
     controller.optionFind(widget.user.email);
   }
 
@@ -32,8 +31,7 @@ class _AccountPageState extends State<AccountPage> {
         actions: [
           IconButton(
             onPressed: () {
-              FirebaseAuth.instance.signOut();
-              _googleSignIn.signOut();
+              UserController.to.google_sign_out();
             },
             icon: const Icon(Icons.exit_to_app),
             color: Colors.black,
