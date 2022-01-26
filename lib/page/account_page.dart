@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/instance_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:instagramproject/controller/postController.dart';
 
 class AccountPage extends StatefulWidget {
   var user;
@@ -13,28 +16,12 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  int _postCount = 0;
-  late List userPost = [];
+  final controller = Get.put(PostController());
   @override
   void initState() {
-    print('account');
-    // TODO: implement initState
-    print(widget.user.email);
     super.initState();
-    FirebaseFirestore.instance
-        .collection('post')
-        .where('email', isEqualTo: widget.user.email)
-        .get()
-        .then((snapshot) {
-      setState(() {
-        _postCount = snapshot.docs.length;
-        userPost = snapshot.docs;
-        print(userPost.length);
-        for (int i = 0; i < userPost.length; i++) {
-          print(userPost[i].data()["photoUrl"]);
-        }
-      });
-    });
+
+    controller.optionFind(widget.user.email);
   }
 
   @override
@@ -113,10 +100,12 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                 ],
               ),
-              Text(
-                '$_postCount\n게시물',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18),
+              Obx(
+                () => Text(
+                  '${controller.optionPost.length}\n게시물',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
               Text('0\n팔로워',
                   textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
@@ -125,19 +114,22 @@ class _AccountPageState extends State<AccountPage> {
             ],
           ),
         ),
-        GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-            ),
-            itemCount: userPost.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(1.0),
-                child: Image.network(userPost[index].data()["photoUrl"],
-                    fit: BoxFit.cover),
-              );
-            }),
+        Obx(
+          () => GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+              ),
+              itemCount: controller.optionPost.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(1.0),
+                  child: Image.network(
+                      controller.optionPost[index].data()["photoUrl"],
+                      fit: BoxFit.cover),
+                );
+              }),
+        ),
       ],
     );
   }

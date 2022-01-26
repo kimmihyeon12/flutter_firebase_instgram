@@ -36,16 +36,16 @@ class _SearchPageState extends State<SearchPage> {
       stream: FirebaseFirestore.instance.collection('post').snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return const Text("Loading");
         }
 
         var items = snapshot.data!.docs;
         return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 childAspectRatio: 1.0,
                 mainAxisSpacing: 1,
@@ -65,7 +65,7 @@ class _SearchPageState extends State<SearchPage> {
         child: InkWell(
           child: Image.network(document['photoUrl'], fit: BoxFit.cover),
           onTap: () {
-            Get.to("detail", arguments: document);
+            Get.toNamed("/detail", arguments: document);
           },
         ),
       ),

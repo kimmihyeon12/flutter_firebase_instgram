@@ -12,4 +12,7 @@ class UserController extends GetxController {
   getUser() {
     return user;
   }
+
+  google_sign() {}
+  google_sign_out() {}
 }

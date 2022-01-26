@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagramproject/controller/snackBarError.dart';
 
@@ -11,7 +10,8 @@ class PostController extends GetxController {
   static PostController get to => Get.find();
   late TextEditingController contents;
   late var file = <String, File>{}.obs;
-
+  // RxList optionPost = [].obs;
+  RxList optionPost = [].obs;
   final picker = ImagePicker();
 
   // firebase insert
@@ -36,6 +36,18 @@ class PostController extends GetxController {
     }
   }
 
+  void optionFind(email) async {
+    FirebaseFirestore.instance
+        .collection('post')
+        .where('email', isEqualTo: email)
+        .get()
+        .then((snapshot) {
+      optionPost(snapshot.docs);
+      optionPost.refresh();
+      print(optionPost);
+    });
+  }
+
   // firebase image storage
   getImgUrl(image) async {
     final storageReference = FirebaseStorage.instance
@@ -47,6 +59,7 @@ class PostController extends GetxController {
     }
   }
 
+  // mobile get image
   void getImg() async {
     var pickedFile = await picker.getImage(
         source: ImageSource.gallery, imageQuality: 50, maxWidth: 400);
@@ -61,6 +74,7 @@ class PostController extends GetxController {
   void onInit() {
     super.onInit();
     contents = TextEditingController();
+    ever(optionPost, (_) => print("optionpost"));
   }
 
   @override
